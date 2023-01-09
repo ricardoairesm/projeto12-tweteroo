@@ -59,7 +59,6 @@ app.post('/tweets', (req, res) => {
 
 app.get('/tweets', (req, res) => {
   const tweetListDisplay = fullBody.reverse();
-  tweetListDisplay = tweetListDisplay.slice(0,10);
   //pegando a pagina que nos encontramos
   const page = Number(req.query.page);
   if (page) {
