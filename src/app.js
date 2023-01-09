@@ -58,12 +58,11 @@ app.post('/tweets', (req, res) => {
 });
 
 app.get('/tweets', (req, res) => {
-  const tweetListDisplay = [];
+  const tweetListDisplay = displayPagina(fullBody,1);
   //pegando a pagina que nos encontramos
-  const page = req.query.page;
-  if(page<1){
+  const page = Number(req.query.page);
+  if(page<=0){
     res.status(400).send('Informe uma página válida!');
-    tweetListDisplay = displayPagina(fullBody,1);
   }
   else{
     tweetListDisplay = displayPagina(fullBody,page);
