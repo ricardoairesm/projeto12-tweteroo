@@ -14,19 +14,19 @@ const tweets = [];
 const fullBody = [];
 
 // dividindo os tweets para a paginação
-function displayPagina(arr,pagina){
-const lastTweets = [...arr].reverse();
-lastTweets.slice((pagina-1)*10 , pagina*10);
-return lastTweets;
+function displayPagina(arr, pagina) {
+  const lastTweets = [...arr].reverse();
+  lastTweets.slice((pagina - 1) * 10, pagina * 10);
+  return lastTweets;
 }
 
 // recebendo os dados do post pela rota /sign-up
 app.post('/sign-up', (req, res) => {
-	const usuario = req.body;
+  const usuario = req.body;
   //checando tipagem e se os campos estão vazios
-  if (!usuario.username || !usuario.avatar) {
+  if (!usuario.username || !usuario.avatar || !(typeof usuario.username === "string") || !(typeof usuario.avatar === "string")) {
     return res.status(400).send("Todos os campos são obrigatórios!")
-}
+  }
   usuarios.push(usuario);
   res.status(201).send("OK");
 });
@@ -41,8 +41,8 @@ app.post('/tweets', (req, res) => {
   }
 
   //checando se pertence a um usuario existente
-  for(let i = 0;i<usuarios.length;i++){
-    if(user === usuarios[i].username){
+  for (let i = 0; i < usuarios.length; i++) {
+    if (user === usuarios[i].username) {
       tweets.push(tweet);
       res.status(201).send("OK");
       fullBody.push({
@@ -52,25 +52,23 @@ app.post('/tweets', (req, res) => {
       })
       //retorno antecipado para impedir a mensagem "UNAUTHORIZED"
       return;
-    }   
+    }
   }
   res.status(401).send("UNAUTHORIZED");
 });
 
 app.get('/tweets', (req, res) => {
-  const tweetListDisplay = displayPagina(fullBody,1);
+  const tweetListDisplay = fullBody.reverse();
   //pegando a pagina que nos encontramos
   const page = Number(req.query.page);
-  if(page<=0){
-    res.status(400).send('Informe uma página válida!');
-  }
-  else{
-    tweetListDisplay = displayPagina(fullBody,page);
+  if (page) {
+    if (page <= 0) { res.status(400).send('Informe uma página válida!'); }
+    else { tweetListDisplay = displayPagina(fullBody, page); }
   }
   res.send(tweetListDisplay);
 });
 
-app.get('/tweets/:username', (req, res)=>{
+app.get('/tweets/:username', (req, res) => {
   const userTweets = fullBody.filter(tweet => tweet.username === req.params.username);
   res.send(userTweets);
 })
