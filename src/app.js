@@ -23,9 +23,7 @@ return lastTweets;
 // recebendo os dados do post pela rota /sign-up
 app.post('/sign-up', (req, res) => {
   //checando tipagem e se os campos estão vazios
-  if (!username || !avatar ) {
-    return res.status(400).send('Todos os campos são obrigatórios!');
-  }
+
 	const usuario = req.body;
   usuarios.push(usuario);
   res.status(201).send("OK");
