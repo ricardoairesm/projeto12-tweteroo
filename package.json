@@ -1,7 +1,6 @@
 {
   "name": "projeto12-tweteroo",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "cors": "^2.8.5",
@@ -16,5 +15,14 @@
   "type": "module",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/ricardoairesm/projeto12-tweteroo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ricardoairesm/projeto12-tweteroo/issues"
+  },
+  "homepage": "https://github.com/ricardoairesm/projeto12-tweteroo#readme",
+  "description": ""
 }
