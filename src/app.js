@@ -22,24 +22,27 @@ return lastTweets;
 
 // recebendo os dados do post pela rota /sign-up
 app.post('/sign-up', (req, res) => {
-  //checando tipagem e se os campos estão vazios
-
 	const usuario = req.body;
+  //checando tipagem e se os campos estão vazios
+  if (!usuario.username || !usuario.avatar) {
+    return res.status(400).send("Todos os campos são obrigatórios!")
+}
   usuarios.push(usuario);
   res.status(201).send("OK");
 });
 
 //recebendo os dados do tweet enviado pela rota /tweets
 app.post('/tweets', (req, res) => {
+  const tweet = req.body;
+  const { user } = req.headers
   //checando tipagem e se os campos estão vazios
-  if (!username || !tweet) {
+  if (!tweet.tweet) {
     return res.status(400).send('Todos os campos são obrigatórios!');
   }
-	const tweet = req.body;
 
   //checando se pertence a um usuario existente
   for(let i = 0;i<usuarios.length;i++){
-    if(tweet.username === usuarios[i].username){
+    if(user === usuarios[i].username){
       tweets.push(tweet);
       res.status(201).send("OK");
       fullBody.push({
