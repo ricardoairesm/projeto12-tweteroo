@@ -14,6 +14,9 @@ const fullBody = [];
 
 // recebendo os dados do post pela rota /sign-up
 app.post('/sign-up', (req, res) => {
+  if (!username || typeof username !== 'string' || !avatar || typeof avatar !== 'string') {
+    return res.status(400).send('Todos os campos são obrigatórios!');
+  }
 	const usuario = req.body;
   usuarios.push(usuario);
   res.send("OK");
@@ -21,6 +24,9 @@ app.post('/sign-up', (req, res) => {
 
 //recebendo os dados do tweet enviado pela rota /tweets
 app.post('/tweets', (req, res) => {
+  if (!username || typeof username !== 'string' || !tweet || typeof tweet !== 'string') {
+    return res.status(400).send('Todos os campos são obrigatórios!');
+  }
 	const tweet = req.body;
 
   //checando se pertence a um usuario existente
