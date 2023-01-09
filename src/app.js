@@ -36,7 +36,7 @@ app.post('/tweets', (req, res) => {
   const tweet = req.body;
   const { user } = req.headers
   //checando tipagem e se os campos estão vazios
-  if (!tweet.tweet) {
+  if (!tweet.tweet || !(typeof tweet.tweet === "string")) {
     return res.status(400).send('Todos os campos são obrigatórios!');
   }
 
@@ -46,7 +46,7 @@ app.post('/tweets', (req, res) => {
       tweets.push(tweet);
       res.status(201).send("OK");
       fullBody.push({
-        username: `${tweet.username}`,
+        username: `${user}`,
         avatar: `${usuarios[i].avatar}`,
         tweet: `${tweet.tweet}`
       })
