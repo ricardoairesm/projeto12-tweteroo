@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
 //criando o armazenamento global para os usuarios e tweets
 const usuarios = [];
 const tweets = [];
@@ -40,7 +41,9 @@ app.post('/tweets', (req, res) => {
 });
 
 app.get('/tweets', (req, res) => {
-  res.send(fullBody);
+  const lastTweets = fullBody.reverse();
+  lastTweets.slice(0,10);
+  res.send(lastTweets);
 });
 
 
